@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 
 import mongoose from "mongoose";
 
+import userRoutes from './routes/userRoutes.js';
+
 dotenv.config();
 
 const app = express();
@@ -11,6 +13,8 @@ const port = process.env.PORT;
 
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
+
+app.use("/users", userRoutes);
 
 const connectDB = async () => {
   try {
