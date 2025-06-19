@@ -1,31 +1,25 @@
-import express, { urlencoded } from "express";
+import express, { urlencoded } from 'express';
 
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
-import mongoose from "mongoose";
+import connectDB from './config/db.js';
 
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
 const app = express();
+
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(urlencoded({ extended: true }));
+app.use(urlencoded({extended:true}));
+app.use("/user", userRoutes)
 
-app.use("/users", userRoutes);
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("Database connected Sucesfully...mongoDB");
-  } catch (error) {
-     console.error(`error:${error.message}`);
-  }
-};
 connectDB();
 
-app.listen(port, () => {
-  console.log(`Server is Running on port: ${port}`);
+
+app.listen(port, ()=> {
+    console.log(`The Server is Running on Port: ${port}`)
 });
